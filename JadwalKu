@@ -1,1 +1,640 @@
+package main
 
+import "fmt"
+
+const Max int = 100
+
+type DataMataKuliah struct {
+	nama_matkul                string
+	jam_mulai, menit_mulai     int
+	jam_selesai, menit_selesai int
+}
+
+type DataDosen struct {
+	id_dosen   int
+	nama_dosen string
+}
+
+type DataRuangan struct {
+	nama_ruangan string
+}
+
+type DataHari struct {
+	Hari string
+}
+
+// KUMPULAN ARRAY
+type hari [Max]DataHari
+type matkul [Max]DataMataKuliah
+type dosen [Max]DataDosen
+type ruangan [Max]DataRuangan
+
+// ===========================================================================================================
+// KUMPULAN DATA DATA AWAL
+// ===========================================================================================================
+
+func jadwalHari(h *hari) {
+	// DATA HARI
+	h[0].Hari = "Selasa"
+	h[1].Hari = "Kamis"
+	h[2].Hari = "Senin"
+	h[3].Hari = "Rabu"
+	h[4].Hari = "Jumat"
+}
+
+func jadwalMatkul(m *matkul) {
+	// DATA NAMA MATKUL
+	m[0].nama_matkul = "Pancasila"
+	m[1].nama_matkul = "Kalkulus"
+	m[2].nama_matkul = "Matriks_dan_Ruang_Vektor"
+	m[3].nama_matkul = "Pemodelan_Basis_Data"
+	m[4].nama_matkul = "Algoritma_dan_Pemrograman"
+
+	// DATA JAM MULAI
+	m[0].jam_mulai = 15
+	m[1].jam_mulai = 6
+	m[2].jam_mulai = 13
+	m[3].jam_mulai = 7
+	m[4].jam_mulai = 14
+
+	// DATA JAM SELESAI
+	m[0].jam_selesai = 17
+	m[1].jam_selesai = 9
+	m[2].jam_selesai = 16
+	m[3].jam_selesai = 9
+	m[4].jam_selesai = 16
+
+	// DATA MENIT MULAI
+	m[0].menit_mulai = 30
+	m[1].menit_mulai = 30
+	m[2].menit_mulai = 30
+	m[3].menit_mulai = 30
+	m[4].menit_mulai = 30
+
+	// DATA MENIT SELESAI
+	m[0].menit_selesai = 30
+	m[1].menit_selesai = 30
+	m[2].menit_selesai = 30
+	m[3].menit_selesai = 30
+	m[4].menit_selesai = 30
+}
+
+func jadwalDosen(d *dosen) {
+	// DATA ID DOSEN
+	d[0].id_dosen = 1184
+	d[1].id_dosen = 1156
+	d[2].id_dosen = 1191
+	d[3].id_dosen = 1176
+	d[4].id_dosen = 1163
+
+	// DATA NAMA DOSEN
+	d[0].nama_dosen = "ASF"
+	d[1].nama_dosen = "SRX"
+	d[2].nama_dosen = "AFH"
+	d[3].nama_dosen = "MZX"
+	d[4].nama_dosen = "KMP"
+}
+
+func jadwalRuangan(r *ruangan) {
+	// DATA RUANGAN
+	r[0].nama_ruangan = "KTT1.04"
+	r[1].nama_ruangan = "KTT2.01"
+	r[2].nama_ruangan = "KTT2.04"
+	r[3].nama_ruangan = "KTT1.02"
+	r[4].nama_ruangan = "KTT1.01"
+}
+
+func banyakJadwal(n *int) {
+	*n = 5
+}
+
+// ===========================================================================================================
+// KUMPULAN DATA DATA AWAL
+// ===========================================================================================================
+
+// ===========================================================================================================
+// KUMPULAN KUMPULAN FUNGSI DAN PROCEDURE PENGURUTAN
+// ===========================================================================================================
+
+func HitungJam(mulai, selesai int) int {
+	return selesai - mulai
+}
+
+func HariKeAngka(hari string) int {
+	switch hari {
+	case "Senin":
+		return 1
+	case "Selasa":
+		return 2
+	case "Rabu":
+		return 3
+	case "Kamis":
+		return 4
+	case "Jumat":
+		return 5
+	case "Sabtu":
+		return 6
+	default:
+		return 7
+	}
+}
+
+func HitungMatkulPerhari(h hari, n int) {
+	var h1, h2, h3, h4, h5, h6, h7 int
+	for i := 0; i < n; i++ {
+		if HariKeAngka(h[i].Hari) == 1 {
+			h1++
+		} else if HariKeAngka(h[i].Hari) == 2 {
+			h2++
+		} else if HariKeAngka(h[i].Hari) == 3 {
+			h3++
+		} else if HariKeAngka(h[i].Hari) == 4 {
+			h4++
+		} else if HariKeAngka(h[i].Hari) == 5 {
+			h5++
+		} else if HariKeAngka(h[i].Hari) == 6 {
+			h6++
+		} else if HariKeAngka(h[i].Hari) == 7 {
+			h7++
+		}
+	}
+
+	// JUMLAH MATKUL TERSISA HARI SENIN
+	if h1 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari SENIN : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari SENIN : %v\n", h1)
+	}
+	// JUMLAH MATKUL TERSISA HARI SELASA
+	if h2 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari SELASA : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari SELASA : %v\n", h2)
+	}
+	// JUMLAH MATKUL TERSISA HARI RABU
+	if h3 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari RABU : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari RABU : %v\n", h3)
+	}
+	// JUMLAH MATKUL TERSISA HARI KAMIS
+	if h4 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari KAMIS : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari KAMIS : %v\n", h4)
+	}
+	// JUMLAH MATKUL TERSISA HARI JUMAT
+	if h5 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari JUMAT : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari JUMAT : %v\n", h5)
+	}
+	// JUMLAH MATKUL TERSISA HARI SABTU
+	if h6 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari SABTU : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari SABTU : %v\n", h6)
+	}
+	// JUMLAH MATKUL TERSISA HARI MINGGU
+	if h7 == 0 {
+		fmt.Println("\nJumlah mata kuliah yang tersisa pada hari MINGGU : TIDAK ADA KELAS")
+	} else {
+		fmt.Printf("\nJumlah mata kuliah yang tersisa pada hari MINGGU : %v\n", h7)
+	}
+}
+
+// MENGURUTKAN JADWAL BERDASARKAN ID DOSEN DARI ID TERKECIL KE ID TERBESAR
+func SelectionSort(h *hari, m *matkul, d *dosen, r *ruangan, n int) {
+	var pass, i, idx int
+	var tempHari DataHari
+	var tempMatkul DataMataKuliah
+	var tempDosen DataDosen
+	var tempRuangan DataRuangan
+	pass = 1
+	for pass <= n-1 {
+		idx = pass - 1
+		i = pass
+		for i < n {
+			if d[idx].id_dosen > d[i].id_dosen {
+				idx = i
+			}
+			i++
+		}
+		tempHari = h[pass-1]
+		tempMatkul = m[pass-1]
+		tempDosen = d[pass-1]
+		tempRuangan = r[pass-1]
+		h[pass-1] = h[idx]
+		m[pass-1] = m[idx]
+		d[pass-1] = d[idx]
+		r[pass-1] = r[idx]
+		h[idx] = tempHari
+		m[idx] = tempMatkul
+		d[idx] = tempDosen
+		r[idx] = tempRuangan
+		pass++
+	}
+}
+
+// MENGURUTKAN BERDASARKAN NAMA HARI DAN WAKTU PERKULIAHAN DIMULAI
+func InsertionSort(h *hari, m *matkul, d *dosen, r *ruangan, n int) {
+	var pass, i, day int
+	var tempHari DataHari
+	var tempMatkul DataMataKuliah
+	var tempDosen DataDosen
+	var tempRuangan DataRuangan
+	for pass = 1; pass < n; pass++ {
+		i = pass
+		tempHari = h[i]
+		tempMatkul = m[i]
+		tempDosen = d[i]
+		tempRuangan = r[i]
+		day = HariKeAngka(h[i].Hari)
+		for i > 0 {
+			if HariKeAngka(h[i-1].Hari) > day || (HariKeAngka(h[i-1].Hari)) == day && tempMatkul.jam_mulai < m[i-1].jam_mulai {
+				h[i] = h[i-1]
+				m[i] = m[i-1]
+				d[i] = d[i-1]
+				r[i] = r[i-1]
+				i--
+			} else {
+				break
+			}
+		}
+		h[i] = tempHari
+		m[i] = tempMatkul
+		d[i] = tempDosen
+		r[i] = tempRuangan
+	}
+}
+
+func SequentialSearch(m matkul, n int, cari string) int {
+	for i := 0; i < n; i++ {
+		if cari == m[i].nama_matkul {
+			return i
+		}
+	}
+	return -1
+}
+
+func BinarySearch(d dosen, n, cari int) int {
+	var left, right, mid, ketemu int
+	left = 0
+	right = n - 1
+	ketemu = -1
+	for left <= right && ketemu == -1 {
+		mid = (left + right) / 2
+		if cari < d[mid].id_dosen {
+			right = mid - 1
+		} else if cari > d[mid].id_dosen {
+			left = mid + 1
+		} else {
+			ketemu = mid
+		}
+	}
+	return ketemu
+}
+
+// ===========================================================================================================
+// KUMPULAN KUMPULAN FUNGSI DAN PROCEDURE PENGURUTAN
+// ===========================================================================================================
+
+// MENU-MENU PROGRAM
+func Menu() {
+	fmt.Println("\n==============================")
+	fmt.Println("   JadwalKu")
+	fmt.Println("==============================")
+	fmt.Println("\n----- MENU -----")
+	fmt.Println("1. Cari jadwal perkuliahan")
+	fmt.Println("2. Lihat semua jadwal perkuliahan")
+	fmt.Println("3. Tambahkan jadwal perkuliahan")
+	fmt.Println("4. Ubah jadwal perkuliahan")
+	fmt.Println("5. Hapus jadwal perkuliahan")
+	fmt.Println("\n6. Keluar Program")
+}
+
+// PILIHAN RUANGAN
+func Ruangan() {
+	fmt.Println("\nPilihan Ruangan:")
+	fmt.Println("\nLantai 1:")
+	fmt.Println("1. KTT1.01")
+	fmt.Println("2. KTT1.02")
+	fmt.Println("3. KTT1.03")
+	fmt.Println("4. KTT1.04")
+	fmt.Println("\nLantai 2:")
+	fmt.Println("5. KTT2.01")
+	fmt.Println("6. KTT2.02")
+	fmt.Println("7. KTT2.03")
+	fmt.Println("8. KTT2.04")
+}
+
+// PILIHAN DOSEN
+func DosenDosen() {
+	fmt.Println("\nPilihan Dosen:")
+	fmt.Println("1. ID : 1180 (RZO)")
+	fmt.Println("2. ID : 1156 (SRX)")
+	fmt.Println("3. ID : 1191 (AFH)")
+	fmt.Println("4. ID : 1176 (MZX)")
+	fmt.Println("5. ID : 1163 (KMP)")
+	fmt.Println("6. ID : 1184 (ASF)")
+	fmt.Println("7. ID : 1132 (ATP)")
+	fmt.Println("8. ID : 1144 (FGR)")
+	fmt.Println("9. ID : 1150 (GTR)")
+	fmt.Println("10. ID : 1129 (RTC)")
+}
+
+// ===========================================================================================================
+// KUMPULAN KUMPULAN PROCEDURE MENU
+// ===========================================================================================================
+
+func CariJadwal(h hari, m matkul, d dosen, r ruangan, n int) {
+	var pilih, cari string
+	var proses, cariId int
+	fmt.Println("\nMau cari berdasarkan:")
+	fmt.Println("1. Nama mata kuliah")
+	fmt.Println("2. ID dosen mata kuliah")
+	fmt.Print("\nMasukkan nomor pilihan : ")
+	fmt.Scan(&pilih)
+	switch pilih {
+	case "1":
+		fmt.Print("\nMasukkan nama mata kuliah : ")
+		fmt.Scan(&cari)
+		proses = SequentialSearch(m, n, cari)
+		if proses == -1 {
+			fmt.Println("\n==============================")
+			fmt.Println("Jadwal tidak ditemukan")
+			fmt.Println("==============================")
+		} else {
+			fmt.Printf("\n%s\n", h[proses].Hari)
+			fmt.Printf("%s\n", m[proses].nama_matkul)
+			fmt.Printf("%d.%d - %d.%d || ID : %d (%s) || %s\n", m[proses].jam_mulai, m[proses].menit_mulai, m[proses].jam_selesai, m[proses].menit_selesai, d[proses].id_dosen, d[proses].nama_dosen, r[proses].nama_ruangan)
+		}
+	case "2":
+		DosenDosen()
+		fmt.Print("\nMasukkan ID dosen : ")
+		fmt.Scan(&cariId)
+		SelectionSort(&h, &m, &d, &r, n)
+		proses = BinarySearch(d, n, cariId)
+		if proses == -1 {
+			fmt.Println("\n==============================")
+			fmt.Println("Jadwal tidak ditemukan")
+			fmt.Println("==============================")
+		} else {
+			fmt.Printf("\n%s\n", h[proses].Hari)
+			fmt.Printf("%s\n", m[proses].nama_matkul)
+			fmt.Printf("%d.%d - %d.%d || ID : %d (%s) || %s\n", m[proses].jam_mulai, m[proses].menit_mulai, m[proses].jam_selesai, m[proses].menit_selesai, d[proses].id_dosen, d[proses].nama_dosen, r[proses].nama_ruangan)
+		}
+	default:
+		fmt.Println("\n==============================")
+		fmt.Println("Pilihan tidak diketahui")
+		fmt.Println("==============================")
+	}
+}
+
+func LihatJadwal(h hari, m matkul, d dosen, r ruangan, n int) {
+	var totalJam, pilihan int
+	fmt.Println("\nTampilkan jadwal berdasarkan:")
+	fmt.Println("1. Urut berdasarkan hari dan jam perkuliahan")
+	fmt.Println("2. Urut berdasarkan ID dosen")
+	fmt.Print("\nMasukkan nomor pilihan : ")
+	fmt.Scan(&pilihan)
+	fmt.Println("\n==============================")
+	fmt.Println("JADWAL S1 - INFORMATIKA")
+	fmt.Println("==============================")
+	switch pilihan {
+	case 1:
+		InsertionSort(&h, &m, &d, &r, n)
+		for i := 0; i < n; i++ {
+			totalJam += HitungJam(m[i].jam_mulai, m[i].jam_selesai)
+			fmt.Printf("\n%s\n", h[i].Hari)
+			fmt.Printf("%s\n", m[i].nama_matkul)
+			fmt.Printf("%d.%d - %d.%d || ID : %d (%s) || %s\n", m[i].jam_mulai, m[i].menit_mulai, m[i].jam_selesai, m[i].menit_selesai, d[i].id_dosen, d[i].nama_dosen, r[i].nama_ruangan)
+		}
+	case 2:
+		SelectionSort(&h, &m, &d, &r, n)
+		for i := 0; i < n; i++ {
+			totalJam += HitungJam(m[i].jam_mulai, m[i].jam_selesai)
+			fmt.Printf("\n%s\n", h[i].Hari)
+			fmt.Printf("%s\n", m[i].nama_matkul)
+			fmt.Printf("%d.%d - %d.%d || ID : %d (%s) || %s\n", m[i].jam_mulai, m[i].menit_mulai, m[i].jam_selesai, m[i].menit_selesai, d[i].id_dosen, d[i].nama_dosen, r[i].nama_ruangan)
+		}
+	}
+	// STATISTIK PERKULIAHAN
+	fmt.Printf("\nTotal jam kuliah per minggu : %d Jam\n", totalJam)
+	HitungMatkulPerhari(h, n)
+}
+
+func TambahkanJadwal(h *hari, m *matkul, d *dosen, r *ruangan, n *int) {
+	var inputH DataHari
+	var inputM DataMataKuliah
+	var inputD DataDosen
+	var inputR DataRuangan
+	var salah, yes_or_not int
+	for {
+		fmt.Print("\nMasukkan nama hari : ")
+		fmt.Scan(&inputH.Hari)
+		fmt.Print("\nMasukkan nama mata kuliah : ")
+		fmt.Scan(&inputM.nama_matkul)
+		fmt.Print("\nMasukkan jam mulai dan menit mulai : ")
+		fmt.Scan(&inputM.jam_mulai, &inputM.menit_mulai)
+		fmt.Print("\nMasukkan jam selesai dan menit selesai : ")
+		fmt.Scan(&inputM.jam_selesai, &inputM.menit_selesai)
+		DosenDosen()
+		fmt.Print("\nMasukkan ID dan nama dosen : ")
+		fmt.Scan(&inputD.id_dosen, &inputD.nama_dosen)
+		Ruangan()
+		fmt.Print("\nMasukkan nama ruangan : ")
+		fmt.Scan(&inputR.nama_ruangan)
+
+		// CEK PENGINPUTAN USER APAKAH JADWAL BERTABRAKAN TERHADAP JAM PERKULIAHAN DAN RUANGAN PERKULIAHAN
+		for i := 0; i < *n; i++ {
+			if inputH.Hari == h[i].Hari {
+				if inputM.jam_mulai >= m[i].jam_mulai && inputM.jam_mulai <= m[i].jam_selesai || inputM.jam_selesai >= m[i].jam_mulai && inputM.jam_selesai <= m[i].jam_selesai || r[i].nama_ruangan == inputR.nama_ruangan {
+					fmt.Println("\nWARNING\nTERDAPAT JADWAL YANG BERTABRAKAN")
+					if r[i].nama_ruangan == inputR.nama_ruangan {
+						fmt.Printf("\nRuangan %s akan dipakai pada jam %d.%d - %d.%d\n", inputR.nama_ruangan, m[i].jam_mulai, m[i].menit_mulai, m[i].jam_selesai, m[i].menit_selesai)
+						fmt.Println("\nIngin tetap tambahkan jadwal? ")
+						fmt.Print("\nKetik -1 jika tidak, 0 jika iya : ")
+						fmt.Scan(&salah)
+					}
+					if inputM.jam_mulai >= m[i].jam_mulai && inputM.jam_mulai <= m[i].jam_selesai || inputM.jam_selesai >= m[i].jam_mulai && inputM.jam_selesai <= m[i].jam_selesai {
+						fmt.Println("\nTerdapat jadwal yang bertarakan")
+						salah = -1
+					}
+					break
+				}
+			}
+		}
+
+		// PENGINGAT APAKAH USER INGIN MENAMBAH JADWAL ATAU TIDAK
+		if salah != -1 {
+			fmt.Println("\n------------------------------")
+			fmt.Println("Jadwal Berhasil ditambahkan")
+			fmt.Println("------------------------------")
+			h[*n] = inputH
+			m[*n] = inputM
+			d[*n] = inputD
+			r[*n] = inputR
+			(*n)++
+			fmt.Println("\n---------- Ingin tambah jadwal lagi ?  ----------")
+			fmt.Print("\nKetik 0 jika tidak, 1 jika iya : ")
+			fmt.Scan(&yes_or_not)
+			if yes_or_not == 0 {
+				break
+			}
+		} else {
+			fmt.Println("\n------------------------------")
+			fmt.Println("Jadwal Gagal ditambahkan")
+			fmt.Println("------------------------------")
+			fmt.Println("\n---------- Ingin mencoba tambah jadwal ?  ----------")
+			fmt.Print("\nKetik 0 jika tidak, 1 jika iya : ")
+			fmt.Scan(&yes_or_not)
+			if yes_or_not == 0 {
+				break
+			}
+		}
+	}
+}
+
+func UbahJadwal(h *hari, m *matkul, d *dosen, r *ruangan, n int) {
+	var ubah string
+	var temukan, pilihan, f int
+	var day DataHari
+	var kuliah DataMataKuliah
+	var dsn DataDosen
+	var ruang DataRuangan
+	fmt.Print("\nMasukkan nama mata kuliah yang ingin diubah : ")
+	fmt.Scan(&ubah)
+	temukan = SequentialSearch(*m, n, ubah)
+	if temukan == -1 {
+		fmt.Println("\nData yang ingin diubah tidak ditemukan")
+	} else {
+		fmt.Println("\nMau mengubah bagian:")
+		fmt.Println("1. Nama hari perkuliahan")
+		fmt.Println("2. Nama mata kuliah")
+		fmt.Println("3. Jam perkuliahan")
+		fmt.Println("4. ID dan nama dosen")
+		fmt.Println("5. Ruangan perkuliahan")
+		fmt.Print("\nMasukkan nomor pilihan : ")
+		fmt.Scan(&pilihan)
+		switch pilihan {
+		case 1:
+			fmt.Print("\nMasukkan nama hari : ")
+			fmt.Scan(&day.Hari)
+			h[temukan].Hari = day.Hari
+		case 2:
+			fmt.Print("\nMasukkan nama mata kuliah : ")
+			fmt.Scan(&kuliah.nama_matkul)
+			m[temukan].nama_matkul = kuliah.nama_matkul
+		case 3:
+			fmt.Print("\nMasukkan Jam dan menit mulai kuliah : ")
+			fmt.Scan(&kuliah.jam_mulai, &kuliah.menit_mulai)
+			fmt.Print("\nMasukkan Jam dan menit selesai kuliah : ")
+			fmt.Scan(&kuliah.jam_selesai, &kuliah.menit_selesai)
+			for i := 0; i < n; i++ {
+				if i != temukan && h[i].Hari == h[temukan].Hari {
+					if kuliah.jam_mulai >= m[i].jam_mulai && kuliah.jam_mulai <= m[i].jam_selesai || kuliah.jam_selesai >= m[i].jam_mulai && kuliah.jam_selesai <= m[i].jam_selesai {
+						f = -1
+						break
+					}
+				}
+			}
+			if f == -1 {
+				fmt.Println("\nERROR\nTERDAPAT JADWAL YANG BERTABRAKAN")
+			} else {
+				m[temukan].jam_mulai = kuliah.jam_mulai
+				m[temukan].menit_mulai = kuliah.menit_mulai
+				m[temukan].jam_selesai = kuliah.jam_selesai
+				m[temukan].menit_selesai = kuliah.menit_selesai
+			}
+		case 4:
+			fmt.Print("\nMasukkan ID dan nama dosen : ")
+			fmt.Scan(&dsn.id_dosen, &dsn.nama_dosen)
+			d[temukan].id_dosen = dsn.id_dosen
+			d[temukan].nama_dosen = dsn.nama_dosen
+		case 5:
+			Ruangan()
+			fmt.Print("\nMasukkan nama ruangan perkuliahan : ")
+			fmt.Scan(&ruang.nama_ruangan)
+			r[temukan].nama_ruangan = ruang.nama_ruangan
+		default:
+			fmt.Println("\nPilihan tidak diketahui")
+			f = -1
+		}
+
+		if f == -1 {
+			fmt.Println("\n------------------------------")
+			fmt.Println("Jadwal Gagal diubah")
+			fmt.Println("------------------------------")
+		} else {
+			fmt.Println("\n------------------------------")
+			fmt.Println("Jadwal Berhasil diubah")
+			fmt.Println("------------------------------")
+		}
+	}
+}
+
+func HapusJadwal(h *hari, m *matkul, d *dosen, r *ruangan, n *int) {
+	var hapus string
+	var proses int
+	fmt.Print("\nMasukkan nama mata kuliah yang ingin dihapus : ")
+	fmt.Scan(&hapus)
+	proses = SequentialSearch(*m, *n, hapus)
+	if proses == -1 {
+		fmt.Println("\nJadwal tidak diketahui")
+	} else {
+		for i := proses; i < *n; i++ {
+			h[i] = h[i+1]
+			m[i] = m[i+1]
+			d[i] = d[i+1]
+			r[i] = r[i+1]
+		}
+		*n--
+		fmt.Println("\n------------------------------")
+		fmt.Println("Jadwal berhasil dihapus")
+		fmt.Println("------------------------------")
+	}
+}
+
+// ===========================================================================================================
+// KUMPULAN KUMPULAN PROCEDURE MENU
+// ===========================================================================================================
+
+func main() {
+	var (
+		arrHari    hari
+		arrMatkul  matkul
+		arrDosen   dosen
+		arrRuangan ruangan
+		n          int
+		pilihan    string
+	)
+	jadwalHari(&arrHari)
+	jadwalMatkul(&arrMatkul)
+	jadwalDosen(&arrDosen)
+	jadwalRuangan(&arrRuangan)
+	banyakJadwal(&n)
+	for {
+		InsertionSort(&arrHari, &arrMatkul, &arrDosen, &arrRuangan, n)
+		Menu()
+		fmt.Print("\nMasukkan nomor pilihan : ")
+		fmt.Scan(&pilihan)
+		switch pilihan {
+		case "1":
+			CariJadwal(arrHari, arrMatkul, arrDosen, arrRuangan, n)
+		case "2":
+			LihatJadwal(arrHari, arrMatkul, arrDosen, arrRuangan, n)
+		case "3":
+			TambahkanJadwal(&arrHari, &arrMatkul, &arrDosen, &arrRuangan, &n)
+		case "4":
+			UbahJadwal(&arrHari, &arrMatkul, &arrDosen, &arrRuangan, n)
+		case "5":
+			HapusJadwal(&arrHari, &arrMatkul, &arrDosen, &arrRuangan, &n)
+		case "6":
+			fmt.Println("\n------------------------------")
+			fmt.Println("PROGRAM SELESAI")
+			fmt.Println("------------------------------")
+			return
+		}
+	}
+}
